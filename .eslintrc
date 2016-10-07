@@ -1,0 +1,4 @@
+{
+	"esnext": true,
+	"parser": "babel-eslint"
+}
