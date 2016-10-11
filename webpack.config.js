@@ -19,16 +19,12 @@ module.exports = {
 
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: `bundle-${process.env.NODE_ENV || 'unk'}${ minify ? '.min' : ''},.js`
+		filename: `bundle${process.env.NODE_ENV ? '.' + process.env.NODE_ENV : ''}${ minify ? '.min' : ''}.js`
 	},
 
 	module: {
 
-		preLoaders: [
-			{
-				// test: /\.js?/, loader: "eslint-loader", exclude: /node_modules/
-			}
-		],
+		
 
 		loaders: [
 			{
