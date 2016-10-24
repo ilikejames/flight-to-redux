@@ -5,6 +5,11 @@ import { createStore, applyMiddleware } from 'redux'
 import * as actions from './invitations.actions';
 import reducer from './invitations.reducer';
 
+
+import './flow-options';
+
+
+/*
 const store = createStore(
     reducer,
     applyMiddleware(thunkMiddleware)
@@ -23,3 +28,5 @@ store.dispatch(actions.setInvitations({
 }));
 
 store.dispatch(actions.loadMore());
+
+*/
