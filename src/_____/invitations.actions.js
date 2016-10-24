@@ -15,11 +15,20 @@ function loaded(invitations) {
     }
 };
 
+function accepted(index) {
+    return {
+        type: ACCEPT_INVITATION,
+        index
+    }
+}
+
 export function setInvitations(invitations) {
     return function(dispatch) {
         dispatch(loaded(invitations));
     }
 }
+
+
 
 export function loadMore() {
     return function(dispatch) {
@@ -31,6 +40,10 @@ export function loadMore() {
         setTimeout(()=> {
             const data = [...new Array(10)].map(x=>make());
             dispatch(loaded({items: data }));
+
+            setTimeout(() => {
+                dispatch(accepted(1));
+            },2000);
         },1000)
     }
 }

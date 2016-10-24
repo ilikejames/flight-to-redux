@@ -12,7 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-devtools-extension": "^1.0.0",
+    "redux-watch": "^1.1.1",
+    "reselect": "^2.5.4"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",

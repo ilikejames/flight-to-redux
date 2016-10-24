@@ -9,40 +9,47 @@ const initialState = {
 };
 
 const accept = (invitation) => {
-    return Object.assign({}, invitation, {
+    return {
+        ...invitation,
         isAccepted: true,
         isDeclined: false
-    })
+    };
 };
 
 const decline = (invitation) => {
-    return Object.assign({}, invitation, {
+    return {
+        ...invitation,
         isAccepted: false,
         isDeclined: true
-    })
+    };
 }
 
 function invitation(state = initialState, action) {
 
     switch(action.type) {
         case actions.INVITATIONS_LOADED:
-            return Object.assign({}, state, { 
-                items: state.items.concat(action.items),
+            return {
+                ...state,
+                items : state.items.concat(action.items),
                 isLoading: false,
                 hasLoaded: true
-            });
+            }
 
         case actions.ACCEPT_INVITATION:
-            let index = state.items.findIndex(x=>x.id===action.id);
-            let list = state.items.slice(0, index)
-                .concat(Object.assign({}, accept(state.items[index])))
-                .concat(state.items.slice(index+1));
-            return Object.assign({}, state, { list: list });
-
-        case actions.LOADING_INVITATIONS:
-            return Object.assign({}, state, {
-                isLoading:true
+            let items = state.items.map((x, index) => {
+                return index===action.index ? accept(x) : x
             });
+
+            return {
+                ...state,
+                items
+            };
+            
+        case actions.LOADING_INVITATIONS:
+            return {
+                ...state,
+                isLoading: true
+            }
 
         default: 
             return state;

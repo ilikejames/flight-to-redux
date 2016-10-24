@@ -1,32 +1,42 @@
 
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
+import * as actions from './actions/invitations';
+import reducers from './reducers';
+import listComponent from './components/list';
+import watch from 'redux-watch';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import * as actions from './invitations.actions';
-import reducer from './invitations.reducer';
 
 
-import './flow-options';
-
-
-/*
 const store = createStore(
-    reducer,
+  reducers,
+  composeWithDevTools(
     applyMiddleware(thunkMiddleware)
+  )
 );
 
-
-store.subscribe((state, prev)=> {
-    console.log('listening to store: ', state, prev);
+listComponent.attachTo('#page-list', {
+  acceptHandler: () => (id) => store.dispatch(actions.accept(id)),
+  declineHandler: () => (id) => store.dispatch(actions.decline(id)),
+  loadPageHandler: () =>() => store.dispatch(actions.load()),
+  list: []
 });
 
-store.dispatch(actions.setInvitations({
-    items: [{
-        id:'123456',
-        title:'first'
-    }]
+
+listComponent.attachTo('#page-list-2', {
+  acceptHandler: null,
+  declineHandler: null,
+  loadPageHandler: null,
+  list: []
+});
+
+
+store.subscribe(watch(store.getState, 'invitations')((newstate, prevstate, path) => {
+  console.log('changed!', newstate);
+  $('#page-list').trigger('update', newstate);
 }));
 
-store.dispatch(actions.loadMore());
 
-*/
+
+store.dispatch(actions.load());
