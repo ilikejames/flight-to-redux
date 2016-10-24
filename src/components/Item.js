@@ -29,8 +29,8 @@ Item.attachAndReplace = attachAndReplace;
 
 const template = (data) => {
     return `<div>
-        <h2>${data.name}</h2>
-        ${data.isAccepted ? 'Accepted' : '' }${data.isDeclined ? 'Declined' : '' }
+        <h2>${data.name}.${'x'.repeat(((42304324203 % data.id)*3)+1)}</h2>
+        <span class="status">${data.isAccepted ? 'Accepted' : '' }${data.isDeclined ? 'Declined' : '' }</span>
         <span style="${data.isAccepted || data.isDeclined ? 'display:none' : ''}">
             <button class="accept">Accept</button>
             <button class="decline">Decline</button>
