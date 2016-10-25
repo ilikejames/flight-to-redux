@@ -1,0 +1,95 @@
+html {
+            font-size:14px;
+            font-family:arial;
+            background:#2f2c2c;
+        }
+
+        #page-list, #page-list-2 {
+            padding:2rem;
+            margin:2rem auto;
+            max-width:600px;
+            background: #524e4e;
+            transform:skew(3deg);
+        }
+
+        h1, h2 {
+            color: black;
+            font-weight:light;
+            letter-spacing:0.5rem;
+            transform:scaleY(1.5);
+            line-height:4rem;
+        }
+
+        h1 {
+            
+        }
+
+        h2 {
+            height:3rem;
+            white-space:no-wrap;
+            overflow:hidden;
+        }
+
+        .status {
+            font-size:2rem;
+            color:black;
+            text-align:right;
+            display:block;
+        }
+
+        hr {
+            border:none;
+            border-bottom:solid 1px black;
+            height:1;
+            margin:1rem 0 2rem 0;
+        }
+
+        .more {
+            color:white;
+            text-decoration:underline;
+            font-size:1.5rem;
+            line-height:3rem;
+            cursor:pointer;
+            text-align:center;
+            display:block;
+            letter-spacing:1rem;
+        }
+
+        button {
+            border:solid 0;
+            background:#080808;
+            color:#aaa;
+            padding:0.5rem 2rem;
+            font-size:1.2rem;
+            margin-right:1rem;
+             letter-spacing:0.2rem;
+        }
+
+        button:hover {
+            background:#000;
+            color:#ddd;
+            cursor:pointer;
+        }
+
+        .more.spin {
+            -webkit-animation: spin 0.5s infinite linear;
+            text-indent:-200000px;
+            width:5rem;
+            height:5rem;
+            border:solid 1px #eee;
+            margin:0 auto;
+            opacity:0.8;
+        }
+
+        @-moz-keyframes spin {
+            from { -moz-transform: rotate(0deg); }
+            to { -moz-transform: rotate(360deg); }
+        }
+        @-webkit-keyframes spin {
+            from { -webkit-transform: rotate(0deg)}
+            to { -webkit-transform: rotate(360deg) }
+        }
+        @keyframes spin {
+            from {transform:rotate(0deg)}
+            to {transform:rotate(360deg)}
+        }
