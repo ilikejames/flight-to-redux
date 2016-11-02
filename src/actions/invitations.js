@@ -8,7 +8,7 @@ export const INVITATIONS_LOADED = 'INVITATIONS_LOADED';
 export const INVITATION_FAILED = 'INVITATION_FAILED';
 export const INVITATION_ACCEPTED = 'INVITATION_ACCEPTED';
 export const INVITATION_DECLINED = 'INVITATION_DECLINED';
-
+export const INVITATION_INCREMENT = 'INVITATION_INCREMENT';
 
 const LIMIT=4;
 
@@ -54,6 +54,14 @@ function failedToLoad(err) {
     }
 }
 
+export function increment(id) {
+    return function(dispatch) {
+        dispatch({
+            type: INVITATION_INCREMENT,
+            id
+        });
+    }
+}
 export function load() {
     return function(dispatch) {
         dispatch({

@@ -6,7 +6,8 @@ import {INVITATION_ACCEPTED,
         INVITATIONS_LOADED, 
         INVITATIONS_LOADING, 
         INVITATIONS_LOADING_FAILED, 
-        INVITATION_FAILED}  from '../actions/invitations';
+        INVITATION_FAILED,
+        INVITATION_INCREMENT }  from '../actions/invitations';
 
 const initialState = {
     isLoading: false,
@@ -19,10 +20,14 @@ function invitations(state = initialState, action) {
 
     switch(action.type) {
         case INVITATIONS_LOADED:
+            action.items = action.items.map(x=>({
+                ...x,
+                _hash: Date.now()
+            }));
             return {
                 ...state,
-                items : state.items.concat(action.items),
-                hasMore : action.hasMore,
+                items: state.items.concat(action.items),
+                hasMore: action.hasMore,
                 isLoading: false,
                 hasLoaded: true
             }
@@ -65,6 +70,14 @@ function invitations(state = initialState, action) {
                 isLoading:false
             }
 
+        case INVITATION_INCREMENT: 
+            return {
+                ...state,
+                items: state.items.map((x) => {
+                    return x.id===action.id ? increment(x) : x
+                })
+            }
+
         default: 
             return state;
     }
@@ -75,7 +88,8 @@ const accepted = invitation => {
         ...invitation,
         isAccepted: true,
         isDeclined: false,
-        hasFailed: false
+        hasFailed: false,
+        _hash: Date.now()
     };
 };
 
@@ -84,15 +98,24 @@ const declined = invitation => {
         ...invitation,
         isAccepted: false,
         isDeclined: true,
-        hasFailed: false
+        hasFailed: false,
+        _hash: Date.now()
     };
 }
-
 
 const failed = invitation => {
     return {
         ...invitation,
-        hasFailed: true
+        hasFailed: true,
+        _hash: Date.now()
+    }
+}
+
+const increment = invitation => {
+    return {
+        ...invitation,
+        counter: (invitation.counter+1) || 1,
+        _hash: Date.now()
     }
 }
 

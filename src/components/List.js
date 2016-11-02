@@ -10,6 +10,7 @@ const List = function() {
     this.attributes({
         acceptHandler: null,
         declineHandler: null,
+        incrementHandler: null,
         loadPageHandler: null,
     });
 
@@ -28,7 +29,8 @@ const List = function() {
 
         this.listMixinUpdate($this.find('.list'), data.items, Item, {
             'acceptHandler': this.attr.acceptHandler,
-            'declineHandler': this.attr.declineHandler
+            'declineHandler': this.attr.declineHandler,
+            'incrementHandler': this.attr.incrementHandler
         });
 
         $this.find('.more').toggleClass('spin', data.isLoading);

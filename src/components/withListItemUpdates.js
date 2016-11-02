@@ -1,12 +1,21 @@
 const flight = require('flightjs');
 
+const cached = {};
 
 function withListItemUpdates() {
 
     this.listMixinUpdate = function($container, items, Item, props={}) {
+
         items.forEach(x => {
 
-            // TODO: cache dom items and comparison on object... or keep letting browser decide whether to update of not.
+            // TODO: remove items
+
+            // check for cached items... and whether they are equal via hash
+            // TODO: handle removed DOM items.
+            if(cached[x.id] && cached[x.id]._hash && cached[x.id]._hash==x._hash) {
+                // console.log('existing item: nochange');
+                return;
+            }
 
             const existing = $container.find(`[data-id=${x.id}]`);
             const wrappedProps = {};
@@ -23,8 +32,11 @@ function withListItemUpdates() {
             if(existing.length) {
                 // update
                 // TODO: update via flight event...?
-                
-                Item.attachAndReplace(existing, {
+                // Item.attachAndReplace(existing, {
+                //     data: x,
+                //     ...wrappedProps
+                // });
+                existing.trigger('update', {
                     data: x,
                     ...wrappedProps
                 });
@@ -33,10 +45,12 @@ function withListItemUpdates() {
                 // append
                 const $wrapper = $('<div/>').attr('data-id', x.id);
                 $container.append($wrapper);
-                Item.attachTo($wrapper, {
+                Item && Item.attachTo && Item.attachTo($wrapper, {
                     data: x,
                     ...wrappedProps
                 });
+
+                cached[x.id]=x;
             }
         });
 
