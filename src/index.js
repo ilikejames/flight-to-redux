@@ -6,8 +6,8 @@ import store from './store';
 
 
 listComponent.attachTo('#page-list', {
-  acceptHandler: () => (id) => store.dispatch(accept(id)),
-  declineHandler: () => (id) => store.dispatch(decline(id)),
+  acceptHandler: () => (data) => store.dispatch(accept(data.id)),
+  declineHandler: () => (data) => store.dispatch(decline(data.id)),
   loadPageHandler: () =>() => store.dispatch(loadInvitations()),
   list: []
 });

@@ -9,10 +9,10 @@ module.exports = {
                     resolve({
                         count : 4,
                         items: [
-                            {id: ++counter, name: counter},
-                            {id: ++counter, name: counter},
-                            {id: ++counter, name: counter},
-                            {id: ++counter, name: counter}
+                            getItem(),
+                            getItem(),
+                            getItem(),
+                            getItem()
                         ]
                     })
                 }, 1500);
@@ -22,3 +22,6 @@ module.exports = {
         decline: id => Promise.resolve(id)
     }
 };
+
+
+const getItem = () => ({id: ++counter, name: 'x'.repeat(((42304324203 % counter)*3)+1) });
