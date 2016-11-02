@@ -49,9 +49,8 @@ function withListItemUpdates() {
                     data: x,
                     ...wrappedProps
                 });
-
-                cached[x.id]=x;
             }
+            cached[x.id]=x;
         });
 
     }

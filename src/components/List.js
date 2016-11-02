@@ -21,7 +21,6 @@ const List = function() {
     });
 
     this.onUpdateItems = function (e, data) {
-
         // don't keep bubbling events upwards...
         e.stopPropagation();
 

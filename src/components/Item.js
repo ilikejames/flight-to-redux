@@ -14,11 +14,6 @@ const Item = flight.component(function Item() {
 
     this.after('initialize', function() {
         let html = template(this.attr.data);
-
-        // premature performance optimization?
-        if(this.$node.html() == html) {
-            return;
-        }
         
         // render
         this.$node.html(html);
