@@ -58,5 +58,5 @@ module.exports = {
 };
 
 
-const getItemGroups = () => ({id: ++groupCounter + 'x', name: 'x'.repeat(((42304324203 % groupCounter)*3)+1) });
+const getItemGroups = () => ({id: ++groupCounter, name: 'x'.repeat(((42304324203 % groupCounter)*3)+1) });
 const getItem = () => ({id: ++invitationCounter, name: 'x'.repeat(((42304324203 % invitationCounter)*3)+1) });
