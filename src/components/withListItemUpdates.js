@@ -1,4 +1,6 @@
-const flight = require('flightjs');
+'use strict';
+
+import flight from 'flightjs'
 
 const cached = {};
 
@@ -11,7 +13,6 @@ function withListItemUpdates() {
             // TODO: remove items
 
             // check for cached items... and whether they are equal via hash
-            // TODO: handle removed DOM items.
             if(cached[x.id] && cached[x.id]._hash && cached[x.id]._hash==x._hash) {
                 // console.log('existing item: nochange');
                 return;
@@ -20,6 +21,7 @@ function withListItemUpdates() {
             const existing = $container.find(`[data-id=${x.id}]`);
             const wrappedProps = {};
 
+            // flightjs, calls attributes if they are functions... so we have to re-wrap them downwards
             for(let prop in props) {
                 if(typeof props[prop] === 'function') {
                     wrappedProps[prop] = () => props[prop].bind({}, x);
@@ -31,18 +33,15 @@ function withListItemUpdates() {
 
             if(existing.length) {
                 // update
-                // TODO: update via flight event...?
-                // Item.attachAndReplace(existing, {
-                //     data: x,
-                //     ...wrappedProps
-                // });
+                // flight event on existing dom element
                 existing.trigger('update', {
                     data: x,
                     ...wrappedProps
                 });
             }
             else {
-                // append
+                // append new item
+                // uuid are our friend here. Should rethink for truely general solution.
                 const $wrapper = $('<div/>').attr('data-id', x.id);
                 $container.append($wrapper);
                 Item && Item.attachTo && Item.attachTo($wrapper, {
@@ -50,6 +49,7 @@ function withListItemUpdates() {
                     ...wrappedProps
                 });
             }
+            // cache it...though that means remove is a problem.
             cached[x.id]=x;
         });
 

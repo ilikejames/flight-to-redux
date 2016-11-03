@@ -1,6 +1,6 @@
 'use strict';
 
-const flight = require('flightjs');
+import flight from 'flightjs'
 
 const Item = flight.component(function Item() {
 
@@ -13,8 +13,13 @@ const Item = flight.component(function Item() {
     });
 
     this.after('initialize', function() {
+
+        // register update handler
+        // TODO: only once....
+        this.$node.on('update', this.onUpdate.bind(this));
+
         let html = template(this.attr.data);
-        
+
         // render
         this.$node.html(html);
 
@@ -22,9 +27,6 @@ const Item = flight.component(function Item() {
         this.$node.find('.accept').click(this.attr.acceptHandler);
         this.$node.find('.decline').click(this.attr.declineHandler);
         this.$node.find('.counter').click(this.attr.incrementHandler);
-
-        // register update handler
-        this.$node.on('update', this.onUpdate.bind(this));
     });
 
     this.onUpdate = function(e, data) {
@@ -37,6 +39,7 @@ const Item = flight.component(function Item() {
 });
 
 
+// or mustache, whatever renderer
 const template = (data) => {
     return `
         <h2>${data.id}.${data.name}</h2>

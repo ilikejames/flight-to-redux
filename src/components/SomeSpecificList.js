@@ -1,23 +1,24 @@
 'use strict';
 
-const flight = require('flightjs');
-const Item = require('./Item');
-const withListItemUpdates = require('./withListItemUpdates');
+import flight from 'flightjs';
+import listItem from '../components/SomeSpecificListItem';
+import withListItemUpdates from './withListItemUpdates';
 
 
-const List = function() {
+const SomeSpecificList = function() {
 
     this.attributes({
         acceptHandler: null,
         declineHandler: null,
         incrementHandler: null,
-        loadPageHandler: null,
+        loadPageHandler: null
     });
 
     this.after('initialize', function(el, params) {
-        this.on('update', this.onUpdateItems.bind(this));
-        this.$node.find('.load-more').click(this.attr.loadPageHandler);
         this.$node.find('.more').click(this.attr.loadPageHandler);
+
+        // handler for updates on this compoent, triggered from the page
+        this.on('update', this.onUpdateItems.bind(this));
     });
 
     this.onUpdateItems = function (e, data) {
@@ -26,14 +27,16 @@ const List = function() {
 
         const $this = $(e.target);
 
-        this.listMixinUpdate($this.find('.list'), data.items, Item, {
+        // calls mixin that handles updates in lists.
+        this.listMixinUpdate($this.find('.list'), data.items, listItem, {
             'acceptHandler': this.attr.acceptHandler,
             'declineHandler': this.attr.declineHandler,
             'incrementHandler': this.attr.incrementHandler
         });
 
+        // update view more
         $this.find('.more').toggleClass('spin', data.isLoading);
     };
 };
 
-module.exports = flight.component(List, withListItemUpdates);
+module.exports = flight.component(SomeSpecificList, withListItemUpdates);
