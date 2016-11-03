@@ -7,15 +7,14 @@ module.exports = {
         list: (limit) => {
             return new Promise((resolve, reject) => {
                 setTimeout(()=>{
-                    resolve({
-                        count : 19,
-                        items: [
-                            getItemGroups(),
-                            getItemGroups(),
-                            getItemGroups(),
-                            getItemGroups()                         
-                        ]
-                    })
+                    const data = {
+                        count : limit,
+                        items : []
+                    };
+                    for(let i=0;i<limit;i++) {
+                        data.items.push(getItemGroups());
+                    };
+                    resolve(data);
                 },100);
             });
         }
@@ -25,30 +24,15 @@ module.exports = {
         list : (limit) => {
             return new Promise((resolve, reject) => {
                 setTimeout(()=>{
-                    resolve({
-                        count : 19,
-                        items: [
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem(),
-                            getItem()
-                        ]
-                    })
+                    const data = {
+                        count : limit,
+                        items : []
+                    };
+                    for(let i=0;i<limit;i++) {
+                        data.items.push(getItem());
+                    };
+                    resolve(data);
+                    
                 }, 1500);
             })
         },

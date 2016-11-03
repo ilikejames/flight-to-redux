@@ -3,7 +3,7 @@ const api = require('./api');
 let next;
 
 export const load = () => {
-        const f = next || api.invitations.list.bind({}, { limit: 20 });
+        const f = next || api.invitations.list.bind({}, 6);
 
         return f()
         .then(results => {

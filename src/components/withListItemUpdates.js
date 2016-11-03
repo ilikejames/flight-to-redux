@@ -6,6 +6,36 @@ function withListItemUpdates() {
 
     const cache = {};
 
+    // this.registerUpdateHandler = function($list, component) {
+    //     if(this.withListItemUpdatesUpdatedBound) {
+    //         return;
+    //     }
+
+    //     this.withListItemUpdatesUpdatedBound = this.withListItemUpdatesUpdated.bind(this, $list, component);
+    //     this.$node.on('update', this.withListItemUpdatesUpdatedBound);
+
+    //     this.getLastData = () => this.attr.data || {};
+
+    //     return {
+    //         afterUpdate: f => {
+    //             return  f && f(this.getLastData);
+    //         }
+    //     }
+    // };
+
+    // this.withListItemUpdatesUpdated = function($list, component, e, data) {
+    //     // don't keep bubbling events upwards...
+    //     e.stopPropagation();
+
+    //     const $this = $(e.target);   
+
+    //     // element to act on...
+
+    //     // calls mixin that handles updates in lists.
+    //     this.listMixinUpdate($list, data.items, component, {});
+    //     this.attr.data =  data;
+    // };
+
     this.listMixinUpdate = function($container, items, Item, props={}) {
 
         items.forEach(x => {
