@@ -19,7 +19,6 @@ function withItemUpdates() {
         e.stopPropagation();
         // reinit, render, wire-up handlers
         this.initialize(this.$node, data);
-        this.afterRender && this.afterRender();
     }
 
 }
