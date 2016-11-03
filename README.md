@@ -7,5 +7,13 @@ Demo for a legacy flightjs api moving to a single state store.
 ```
 npm install
 npm run build
-npm run start
 ```
+ 
+open `index.htm`
+
+
+## todo
+
+- deleted items?
+- document outline
+- tests

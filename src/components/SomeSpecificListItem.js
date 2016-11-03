@@ -14,9 +14,11 @@ const Item = flight.component(function Item() {
 
     this.after('initialize', function() {
 
-        // register update handler
-        // TODO: only once....
-        this.$node.on('update', this.onUpdate.bind(this));
+        // register update handler... but only once.
+        if(!this.onUpdateHander) {
+            this.onUpdateHander = this.onUpdate.bind(this);
+            this.$node.on('update', this.onUpdateHander);
+        }
 
         let html = template(this.attr.data);
 
@@ -32,7 +34,6 @@ const Item = flight.component(function Item() {
     this.onUpdate = function(e, data) {
         // stop events bubling upwards
         e.stopPropagation();
-
         // reinit, render, wire-up handlers
         this.initialize(this.$node, data);
     }
