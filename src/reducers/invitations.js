@@ -21,8 +21,7 @@ function invitations(state = initialState, action) {
     switch(action.type) {
         case INVITATIONS_LOADED:
             action.items = action.items.map(x=>({
-                ...x,
-                _hash: Date.now()
+                ...x
             }));
             return {
                 ...state,
@@ -88,8 +87,7 @@ const accepted = invitation => {
         ...invitation,
         isAccepted: true,
         isDeclined: false,
-        hasFailed: false,
-        _hash: Date.now()
+        hasFailed: false
     };
 };
 
@@ -98,24 +96,21 @@ const declined = invitation => {
         ...invitation,
         isAccepted: false,
         isDeclined: true,
-        hasFailed: false,
-        _hash: Date.now()
+        hasFailed: false
     };
 }
 
 const failed = invitation => {
     return {
         ...invitation,
-        hasFailed: true,
-        _hash: Date.now()
+        hasFailed: true
     }
 }
 
 const increment = invitation => {
     return {
         ...invitation,
-        counter: (invitation.counter+1) || 1,
-        _hash: Date.now()
+        counter: (invitation.counter+1) || 1
     }
 }
 

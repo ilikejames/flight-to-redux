@@ -1,7 +1,7 @@
 'use strict';
 
 import flight from 'flightjs';
-import listItem from '../components/SomeSpecificListItem';
+import listItem from './invitationListItem';
 import withListItemUpdates from './withListItemUpdates';
 
 
@@ -18,7 +18,7 @@ const SomeSpecificList = function() {
         this.$node.find('.more').click(this.attr.loadPageHandler);
         
         // handler for updates on this compoent, triggered from the page
-        this.on('update', this.onUpdateItems.bind(this));
+        this.$node.on('update', this.onUpdateItems.bind(this));
     });
 
     this.onUpdateItems = function (e, data) {
@@ -39,4 +39,4 @@ const SomeSpecificList = function() {
     };
 };
 
-module.exports = flight.component(SomeSpecificList, withListItemUpdates);
+module.exports = flight.component(SomeSpecificList, new withListItemUpdates());

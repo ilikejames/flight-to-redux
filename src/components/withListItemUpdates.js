@@ -2,18 +2,19 @@
 
 import flight from 'flightjs'
 
-const cached = {};
-
 function withListItemUpdates() {
+
+    const cache = {};
 
     this.listMixinUpdate = function($container, items, Item, props={}) {
 
         items.forEach(x => {
 
             // TODO: remove items
-
-            // check for cached items... and whether they are equal via hash
-            if(cached[x.id] && cached[x.id]._hash && cached[x.id]._hash==x._hash) {
+            
+            // check for changes on already rendered objects
+            // because existing rendered objects not been mutated we can do comparison between objects directly.
+            if(cache[x.id] && cache[x.id]._hash && cache[x.id]==x) {
                 // console.log('existing item: nochange');
                 return;
             }
@@ -50,10 +51,13 @@ function withListItemUpdates() {
                 });
             }
             // cache it...though that means remove is a problem.
-            cached[x.id]=x;
+            cache[x.id]=x;
         });
 
     }
+    
 }
 
-module.exports = withListItemUpdates;
+module.exports = () => {
+    return withListItemUpdates;
+};
