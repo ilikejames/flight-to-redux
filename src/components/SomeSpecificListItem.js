@@ -1,8 +1,12 @@
 'use strict';
 
 import flight from 'flightjs'
+import withItemUpdates from './withItemUpdates'
 
-const Item = flight.component(function Item() {
+
+module.exports = flight.component(Item, withItemUpdates);
+
+function Item() {
 
     // Handlers are passed down through flight attributes
     this.attributes({
@@ -13,15 +17,7 @@ const Item = flight.component(function Item() {
     });
 
     this.after('initialize', function() {
-
-        // register update handler... but only once.
-        if(!this.onUpdateHander) {
-            this.onUpdateHander = this.onUpdate.bind(this);
-            this.$node.on('update', this.onUpdateHander);
-        }
-
         let html = template(this.attr.data);
-
         // render
         this.$node.html(html);
 
@@ -31,13 +27,7 @@ const Item = flight.component(function Item() {
         this.$node.find('.counter').click(this.attr.incrementHandler);
     });
 
-    this.onUpdate = function(e, data) {
-        // stop events bubling upwards
-        e.stopPropagation();
-        // reinit, render, wire-up handlers
-        this.initialize(this.$node, data);
-    }
-});
+}
 
 
 // or mustache, whatever renderer
@@ -54,5 +44,4 @@ const template = (data) => {
     `;
 };
 
-module.exports = Item;
 

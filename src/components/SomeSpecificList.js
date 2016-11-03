@@ -16,7 +16,7 @@ const SomeSpecificList = function() {
 
     this.after('initialize', function(el, params) {
         this.$node.find('.more').click(this.attr.loadPageHandler);
-
+        
         // handler for updates on this compoent, triggered from the page
         this.on('update', this.onUpdateItems.bind(this));
     });
